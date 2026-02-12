@@ -34,8 +34,8 @@ class Person:
     """
     Updates the person's contact information.
     Parameters:
-    - email (str, optional): The new email address.
-    - phone (str, optional): The new phone number.
+        email (str, optional): The new email address.
+        phone (str, optional): The new phone number.
     """
     def update_contact(self, email: str = None, phone: str = None) -> None:
         if email:
