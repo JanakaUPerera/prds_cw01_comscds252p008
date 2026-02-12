@@ -10,6 +10,7 @@ functions:
 - calculate_gpa: Calculates the cumulative GPA for the student based on their grades.
 - gpa: A property that returns the calculated GPA.
 - get_academic_status: Determines the academic status of the student based on their GPA.
+- get_responsibilities: Returns the responsibilities.
 """
 from person import Person
 

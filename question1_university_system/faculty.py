@@ -5,6 +5,7 @@ This module defines the Faculty class, which inherits from the Person class.
 functions:
 - __init__: Initializes a Faculty object with personal and faculty-specific attributes.
 - get_info: Returns a formatted string with the faculty member's information.
+- get_responsibilities: Returns the responsibilities.
 """
 from person import Person
 

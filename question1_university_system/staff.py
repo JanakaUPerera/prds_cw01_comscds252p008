@@ -5,6 +5,7 @@ This module defines the Staff class, which inherits from the Person class.
 functions:
 - __init__: Initializes a Staff object with personal and staff-specific attributes.
 - get_info: Returns a formatted string with the staff member's information.
+- get_responsibilities: Returns the responsibilities.
 """
 from person import Person
 

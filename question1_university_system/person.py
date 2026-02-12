@@ -7,6 +7,7 @@ functions:
 - __init__: Initializes a Person object with basic personal attributes.
 - get_info: Returns a formatted string with the person's information.
 - update_contact: Updates the person's contact information.
+- get_responsibilities: Returns the responsibilities.
 """
 class Person:
     def __init__(self, 
