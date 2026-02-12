@@ -9,6 +9,8 @@ functions:
 from person import Person
 
 class Student(Person):
+    MAX_COURSES_PER_SEMESTER = 6
+    
     def __init__(self, 
                 name: str, 
                 person_id: int, 
@@ -44,13 +46,18 @@ class Student(Person):
     structure:
     - First, it checks if the semester is already in the enrolled_courses dictionary. 
         If not, it initializes an empty list for that semester.
+    - Then, it checks if the number of courses for that semester has reached the maximum limit. 
+        If it has, it raises a ValueError.
     - If the course is not already in the enrolled_courses list, 
         it adds the course code to the list.
     """
     def enroll_course(self, semester: str, course_code: str) -> None:
         if semester not in self.enrolled_courses:
             self.enrolled_courses[semester] = []
- 
+
+        if len(self.enrolled_courses[semester]) >= self.MAX_COURSES_PER_SEMESTER:
+            raise ValueError(f"Cannot enroll: The maximum number of courses for a semester is {self.MAX_COURSES_PER_SEMESTER}, and has been reached.")
+        
         if course_code not in self.enrolled_courses[semester]:
             self.enrolled_courses[semester].append(course_code)
     
@@ -61,9 +68,19 @@ class Student(Person):
         course_code (str): The code of the course for which to add the grade.
         grade (float): The grade to add for the course.
     structure:
+    - First, it checks if the student is enrolled in the specified course for the given semester. 
+        If not, it raises a ValueError.
+    - Then, it checks if the grade is between 0.0 and 4.0. 
+        If not, it raises a ValueError.
     - If the student is enrolled, it adds or updates the grade for the semester and course
     """        
     def add_grade(self, semester: str, course_code: str, grade: float) -> None:
+        if course_code not in self.enrolled_courses[semester]:
+            raise ValueError(f"Cannot add grade: student is not enrolled in semester {semester} course {course_code}")
+        
+        if not (0.0 <= grade <= 4.0):
+            raise ValueError("Grade must be between 0.0 and 4.0")
+        
         if semester not in self.grades:
             self.grades[semester] = {}
         self.grades[semester][course_code] = grade
