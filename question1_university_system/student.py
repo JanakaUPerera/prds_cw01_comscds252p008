@@ -140,3 +140,11 @@ class Student(Person):
         if gpa >= 2.0:
             return "Good Standing"
         return "Probation"
+    
+    """
+    Student-specific responsibilities in the university.
+    returns:
+    - A string describing the responsibilities
+    """
+    def get_responsibilities(self) -> str:
+        return "Attend lectures, complete coursework, and maintain academic progress."

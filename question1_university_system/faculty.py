@@ -33,3 +33,10 @@ class Faculty(Person):
             f"Department: {self.department}\n"
             f"Hire Date: {self.hire_date}"
         )
+    
+    """Faculty-specific responsibilities in the university.
+    returns:
+    - A string describing the responsibilities
+    """
+    def get_responsibilities(self) -> str:
+        return "Teach courses, conduct research, and supervise/mentor students."

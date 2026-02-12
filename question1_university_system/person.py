@@ -42,3 +42,9 @@ class Person:
             self.email = email
         if phone:
             self.phone = phone
+            
+    """
+    Returns the general responsibilities in the university.
+    """
+    def get_responsibilities(self) -> str:
+        return "General responsibilities in the university."

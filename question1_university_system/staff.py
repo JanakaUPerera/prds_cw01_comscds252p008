@@ -34,3 +34,20 @@ class Staff(Person):
             f"Role: {self.role}\n"
             f"Department: {self.department}"
         )
+    
+    """Staff-specific responsibilities in the university.
+    returns:
+    - A string describing the role specific responsibilities
+    """
+    def get_responsibilities(self) -> str:
+        role_responsibilities = {
+            "Lab Assistant": "Assist labs and maintain equipment.",
+            "Technical Officer": "Provide technical and system support.",
+            "Program Coordinator": "Coordinate academic programs.",
+            "Administrative Officer": "Handle administrative operations.",
+            "Student Affairs Executive": "Manage student services and welfare."
+        }
+        return f"{role_responsibilities.get(
+            self.role,
+            "Support academic and administrative activities."
+        )} As a {self.role} in the {self.department} department."
