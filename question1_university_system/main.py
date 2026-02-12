@@ -68,6 +68,27 @@ class Main:
         print(f"GPA: {student.gpa}")
         print(f"Academic Status: {student.get_academic_status()}")
         
+        # Show error handling by attempting to add invalid data.
+        print("\n--- Error Handling Demonstration ---")
+        print("Attempting to enroll in more than 6 courses in a semester:")
+        try:
+            student.enroll_course(enroll_semester, 'CS106')
+            student.enroll_course(enroll_semester, 'CS107') # Exceeding course limit
+        except ValueError as e:
+            print(f"Error: {e}")
+            
+        print("\nAttempting to add a grade for a course the student is not enrolled in:")
+        try:
+            student.add_grade(enroll_semester, 'CS999', 3.0) # Course not enrolled
+        except ValueError as e:
+            print(f"Error: {e}")
+            
+        print("\nAttempting to add an invalid grade:")
+        try:
+            student.add_grade(enroll_semester, 'CS101', 4.5) # Invalid grade
+        except ValueError as e:
+            print(f"Error: {e}")
+            
 if __name__ == "__main__":
     main = Main()
     main.run()
