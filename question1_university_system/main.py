@@ -88,6 +88,13 @@ class Main:
             student.add_grade(enroll_semester, 'CS101', 4.5) # Invalid grade
         except ValueError as e:
             print(f"Error: {e}")
+        
+        # Demonstrate Polymorphism
+        print("\n--- Polymorphism Demonstration ---")
+        persons = [students[0], faculty_members[2], staff_members[4]]
+        for person in persons:
+            print(f"\n{person.__class__.__name__}:\n{'--'*30}\n")
+            print(f"{person.name}: {person.get_responsibilities()}")
             
 if __name__ == "__main__":
     main = Main()
