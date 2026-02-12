@@ -5,6 +5,11 @@ This module defines the Student class, which inherits from the Person class.
 functions:
 - __init__: Initializes a Student object with personal and student-specific attributes.
 - get_info: Returns a formatted string with the student's information.
+- enroll_course: Enrolls the student in a course for a specific semester.
+- add_grade: Adds a grade for a course in a specific semester.
+- calculate_gpa: Calculates the cumulative GPA for the student based on their grades.
+- gpa: A property that returns the calculated GPA.
+- get_academic_status: Determines the academic status of the student based on their GPA.
 """
 from person import Person
 
