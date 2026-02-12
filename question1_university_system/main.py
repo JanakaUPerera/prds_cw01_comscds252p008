@@ -1,6 +1,8 @@
 from student import Student
 from faculty import Faculty
 from staff import Staff
+from course import Course
+from department import Department
 
 class Main:
     def __init__(self):
@@ -95,6 +97,54 @@ class Main:
         for person in persons:
             print(f"\n{person.__class__.__name__}:\n{'--'*30}\n")
             print(f"{person.name}: {person.get_responsibilities()}")
+        
+        # Course & Department classes demo (2 departments, 3-4 courses each)
+        print("\n--- Course & Department Demonstration ---")
+        dept_cs = Department("Computing", dept_head=faculty_members[0])
+        dept_bus = Department("Business", dept_head=faculty_members[2])
+
+        dept_cs.add_faculty(faculty_members[1])
+
+        cs_courses = [
+            Course("DS101", "Intro to Data Science", 3, faculty_members[0], max_capacity=2),
+            Course("DS102", "Python for Data Science", 3, faculty_members[1], max_capacity=3),
+            Course("DS103", "Machine Learning", 3, faculty_members[0], max_capacity=2),
+        ]
+        bus_courses = [
+            Course("BU201", "Business Analytics", 3, faculty_members[2], max_capacity=3),
+            Course("BU202", "Research Methods", 3, faculty_members[2], max_capacity=3),
+            Course("BU203", "Project Management", 3, faculty_members[2], max_capacity=3),
+        ]
+
+        for c in cs_courses:
+            dept_cs.add_course(c)
+        for c in bus_courses:
+            dept_bus.add_course(c)
+
+        # Assign enrollments
+        cs_courses[0].add_student(students[0])
+        cs_courses[0].add_student(students[1])
+        cs_courses[1].add_student(students[1])
+        cs_courses[1].add_student(students[2])
+        bus_courses[0].add_student(students[2])
+        bus_courses[0].add_student(students[4])
+        bus_courses[1].add_student(students[4])
+
+        print("\n--- Error Handling in Course Enrollment ---")
+        try:
+            cs_courses[0].add_student(students[2])  # This should raise an error (course full)
+        except ValueError as e:
+            print(f"Error: {e}")
+
+        print("\n--- Department Summary (Computing) ---")
+        print(dept_cs.get_department_info())
+        for c in dept_cs.course_list:
+            print("  ", str(c))
+
+        print("\n--- Department Summary (Business) ---")
+        print(dept_bus.get_department_info())
+        for c in dept_bus.course_list:
+            print("  ", str(c))
             
 if __name__ == "__main__":
     main = Main()
