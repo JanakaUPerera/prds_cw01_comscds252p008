@@ -51,6 +51,22 @@ class Main:
         for staff in staff_members:
             print(staff.get_info())
             print("-" * 50)
+            
+        # Demonstrate enroll a student in 4-5 courses, receiving grades, and displaying academic status.
+        student = students[0]  # Select the first student for demonstration
+        print(f"\n--- Enrolling Courses for {student.name} ---")
+        enroll_semester = "2025S1"
+        courses = ['CS101', 'CS102', 'CS103', 'CS104', 'CS105']
+        for course in courses:
+            student.enroll_course(enroll_semester, course)
+        
+        grades = [3.5, 3.7, 3.2, 4.0, 3.8]
+        for course, grade in zip(courses, grades):
+            student.add_grade(enroll_semester, course, grade)
+        
+        print(f"\n--- Academic Status for {student.name} ---")
+        print(f"GPA: {student.gpa}")
+        print(f"Academic Status: {student.get_academic_status()}")
         
 if __name__ == "__main__":
     main = Main()
