@@ -1,3 +1,10 @@
+"""
+book_scraper.py
+This script scrapes book data from the "https://books.toscrape.com" website, 
+including title, price, rating, category, and availability. 
+The scraped data is saved to a CSV file for further analysis.
+"""
+
 import requests
 import time
 import random
@@ -6,16 +13,29 @@ import csv
 
 from bs4 import BeautifulSoup
 
-BASE_URL = 'https://books.toscrape.com/catalogue/page-{}.html'
-DETAIL_BASE_URL = 'https://books.toscrape.com/catalogue/'
-DATA_PATH = "question2_data_analysis/data/"
+BASE_URL = 'https://books.toscrape.com/catalogue/page-{}.html' # URL template for paginated book listings
+DETAIL_BASE_URL = 'https://books.toscrape.com/catalogue/' # Base URL for further book details
+DATA_PATH = "question2_data_analysis/data/" # Path to save the scraped data
 
+"""
+Define a function to fetch the content of the URL
+Parameters:
+    url (str): The URL to fetch
+    retries (int): The number of retry attempts if failed
+    timeout (int): The timeout for the request in seconds
+Structure:
+- Try to fetch the URL content
+- If successful, return the response text
+- If an error occurs, print the error and retry until the maximum number of retries is reached
+Return:
+- The response text if successful, or None if all attempts fail
+"""
 def fetch_with_retries(url: str, retries: int = 3, timeout: int = 10) -> requests.Response:
     for attempt in range(1, retries + 1):
         try:
             response = requests.get(url, timeout=timeout)
             response.raise_for_status()  # Check if the request was successful
-            response.encoding = "utf-8"
+            response.encoding = "utf-8" # Encode the response to UTF-8 to handle special characters
             
             return response.text
         except Exception as e:
@@ -24,6 +44,17 @@ def fetch_with_retries(url: str, retries: int = 3, timeout: int = 10) -> request
                 print("All attempts failed. Giving up.")
             time.sleep(random.uniform(1, 2))  # Wait a random amount of time before retrying
 
+"""
+Define a function to extract the category of a book from its detail URL
+Parameters:
+    detail_url (str): The URL of the book's detail page
+Structure:
+- Try to fetch the detail page content
+- If successful, parse the HTML and extract the category from the breadcrumb navigation
+- If an error occurs, return "Unknown"
+Return:
+    The category name as a string, or "Unknown" if extraction fails
+"""
 def get_category(detail_url: str) -> str:
     try:
         response = fetch_with_retries(detail_url)
@@ -38,6 +69,17 @@ def get_category(detail_url: str) -> str:
         print(f"Error: {e}")
         return 'Unknown'
 
+"""
+Define a function to save the scraped data to a CSV file
+Parameters:
+    data (list): A list of lists containing the book data
+    file_name (str): The name of the CSV file to save the data to
+Structure:
+- Define the headers for the CSV file
+- Create the directory for saving the CSV file if it does not exist
+- Open the CSV file for writing and write the headers and data rows
+- Print a confirmation message with the file path
+"""
 def save_to_csv(data: list, file_name: str = "books_data.csv"):
     headers = ["Title", "Price", "Rating", "Category", "Availability"]
     # Create the csv saving folder if it is not exist
@@ -52,6 +94,19 @@ def save_to_csv(data: list, file_name: str = "books_data.csv"):
     
     print(f"\n-- Data saved to {filepath} --")
 
+"""
+Define a function to scrape book data from the website
+Parameters:
+    pages (int): The number of pages to scrape (default is 5)
+Structure:
+- Initialize an empty list to store the scraped book data
+- Loop through the number of pages
+- Construct the URL and fetch the page content
+- Extract the data tile, price, rating, category and availability
+- Append the data into book data list
+Return:
+- A list of lists containing the scraped book data
+"""
 def scrape_book_data(pages: int = 5) -> list:
     books_data = []
     for page in range(1, pages + 1):
