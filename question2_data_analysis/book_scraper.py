@@ -52,15 +52,13 @@ Parameters:
 Structure:
 - Try to fetch the detail page content
 - If successful, parse the HTML and extract the category from the breadcrumb navigation
-- If an error occurs, return "Unknown"
+- If an error occurs, return None
 Return:
-    The category name as a string, or "Unknown" if extraction fails
+    The category name as a string, or None if extraction fails
 """
 def get_category(detail_url: str) -> str:
     try:
         response = fetch_with_retries(detail_url)
-        if response is None:
-            return "Unknown"
         
         soup = BeautifulSoup(response, "html.parser")
         breadcrumb = soup.find("ul", class_="breadcrumb")
@@ -68,7 +66,7 @@ def get_category(detail_url: str) -> str:
         return category
     except Exception as e:
         print(f"Error: {e}")
-        return 'Unknown'
+        return None
 
 """
 Define a function to save the scraped data to a CSV file
