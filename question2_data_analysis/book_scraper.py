@@ -147,5 +147,5 @@ def scrape_data(pages: int = 5) -> list:
     return scraped_data
 
 if __name__ == "__main__":
-    books_data = scrape_book_data(5)
-    save_to_csv(books_data, "books_data.csv")
+    scraped_data = scrape_data(25)
+    save_to_csv(scraped_data, f"books_data_500.csv")
