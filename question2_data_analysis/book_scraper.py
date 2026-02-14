@@ -12,6 +12,7 @@ import os
 import csv
 
 from bs4 import BeautifulSoup
+from tqdm import tqdm
 
 BASE_URL = 'https://books.toscrape.com/catalogue/page-{}.html' # URL template for paginated book listings
 DETAIL_BASE_URL = 'https://books.toscrape.com/catalogue/' # Base URL for further book details
@@ -107,11 +108,10 @@ Structure:
 Return:
 - A list of lists containing the scraped book data
 """
-def scrape_book_data(pages: int = 5) -> list:
-    books_data = []
-    for page in range(1, pages + 1):
+def scrape_data(pages: int = 5) -> list:
+    scraped_data = []
+    for page in tqdm(range(1, pages + 1), desc="Scraping Pages"):
         url = BASE_URL.format(page)
-        print(f"\n-- Scraping book data from Page: {page} --")
         
         try:
             response = fetch_with_retries(url)
@@ -121,7 +121,7 @@ def scrape_book_data(pages: int = 5) -> list:
             soup = BeautifulSoup(response, 'html.parser')
             books = soup.find_all("article", class_="product_pod")
             
-            for book in books:
+            for book in tqdm(books, desc=f"Processing Page {page}", leave=False):
                 try:
                     title = book.h3.a['title']
                     price = book.find("p", class_="price_color").text.strip()
@@ -129,25 +129,21 @@ def scrape_book_data(pages: int = 5) -> list:
                     category = get_category(DETAIL_BASE_URL + book.h3.a["href"])
                     availability = book.find("p", class_="instock availability").text.strip()
                     
-                    books_data.append([
+                    scraped_data.append([
                         title,
                         price,
                         rating,
                         category,
                         availability
                     ])
-                    
-                    print(f"Scraped: {title}")
                 except Exception as book_error:
                     print(f"Error: {book_error}")
-                    
-            time.sleep(random.uniform(1,2))
             
         except Exception as page_error:
             print(f"Error: {page_error}")
             
-    print(f"\n-- {len(books_data)} books was scraped --")
-    return books_data
+    print(f"\n-- {len(scraped_data)} data was scraped --")
+    return scraped_data
 
 if __name__ == "__main__":
     books_data = scrape_book_data(5)
