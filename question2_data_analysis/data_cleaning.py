@@ -34,8 +34,8 @@ def clean_data(file_name: str):
             print(df.isna().sum())
             
             # Price standardization (Remove '£' symbol, convert to float)
-            df['price'] = df['price'].str.strip()[1:]
-            df['price'] = pd.to_numeric(df['price'])
+            df['price'] = df['price'].str.replace('£', '', regex=False).str.strip()
+            df['price'] = pd.to_numeric(df['price'], errors='coerce')
             
             # Rating conversion: Convert text ratings to numeric (1-5)
             df['rating'] = df['rating'].map(RATING_MAP)
