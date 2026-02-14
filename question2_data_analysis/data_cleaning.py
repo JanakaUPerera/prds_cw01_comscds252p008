@@ -56,7 +56,7 @@ def clean_data(file_name: str):
                 bins=(0, 20, 40, float('inf')),
                 right=False,
                 labels=['Budget', 'Mid-range', 'Premium']
-            )
+            ).astype(str)
             
             # Boolean based on availability
             df['availability'] = df['availability'].str.contains('In Stock', case=True, na=False)
