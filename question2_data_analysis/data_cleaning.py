@@ -66,7 +66,21 @@ def clean_data(file_name: str):
             output_file_path = os.path.join(CLEANED_DATA_PATH, 'cleaned_'+file_name)
             df.to_csv(output_file_path, index=False, encoding='utf-8-sig')
             
-            print(df.head(5))
+            print(f"\n-- Cleaned Data saved to {output_file_path} --")
+            
+            
+            # After Cleaning
+            print("-- After Cleaning --")
+            print(f"Data Shape: {df.shape}")
+            print("\nData Types:")
+            print('-'*50)
+            print(df.dtypes)
+            print("\nData Summary:")
+            print('-'*50)
+            print(df.describe())
+            print("\nNULL Data:")
+            print('-'*50)
+            print(df.isna().sum())
         else:
             raise FileNotFoundError(f"Can't find the {file_name} file at {RAW_DATA_PATH}")
         
