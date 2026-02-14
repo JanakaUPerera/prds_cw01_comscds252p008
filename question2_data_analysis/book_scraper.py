@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 
 BASE_URL = 'https://books.toscrape.com/catalogue/page-{}.html' # URL template for paginated book listings
 DETAIL_BASE_URL = 'https://books.toscrape.com/catalogue/' # Base URL for further book details
-DATA_PATH = "question2_data_analysis/data/" # Path to save the scraped data
+DATA_PATH = "question2_data_analysis/data/raw/" # Path to save the scraped data
 
 """
 Define a function to fetch the content of the URL
