@@ -59,7 +59,12 @@ def clean_data(file_name: str):
             ).astype(str)
             
             # Boolean based on availability
-            df['availability'] = df['availability'].str.contains('In Stock', case=True, na=False)
+            df['in_stock'] = df['availability'].str.contains('In Stock', case=False, na=False)
+            
+            # Create the csv saving folder if it is not exist
+            os.makedirs(CLEANED_DATA_PATH, exist_ok=True)
+            output_file_path = os.path.join(CLEANED_DATA_PATH, 'cleaned_'+file_name)
+            df.to_csv(output_file_path, index=False, encoding='utf-8-sig')
             
             print(df.head(5))
         else:
