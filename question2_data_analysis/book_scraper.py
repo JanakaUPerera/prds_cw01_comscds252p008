@@ -44,7 +44,6 @@ def fetch_with_retries(url: str, retries: int = 3, timeout: int = 10) -> request
             print(f"Attempt {attempt} failed: {e}")
             if attempt == retries:
                 print("All attempts failed. Giving up.")
-            time.sleep(random.uniform(1, 2))  # Wait a random amount of time before retrying
 
 """
 Define a function to extract the category of a book from its detail URL
