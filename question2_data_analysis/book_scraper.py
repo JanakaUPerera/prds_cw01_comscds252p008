@@ -86,12 +86,13 @@ def save_to_csv(data: list, file_name: str = "books_data.csv"):
     # Create the csv saving folder if it is not exist
     os.makedirs(DATA_PATH, exist_ok=True)
     
-    filepath = DATA_PATH + file_name
+    filepath = os.path.join(DATA_PATH, file_name)
     
     with open(filepath, mode="w", newline="", encoding="utf-8-sig") as file:
         writer = csv.writer(file)
         writer.writerow(headers)
         writer.writerows(data)
+        file.close()
     
     print(f"\n-- Data saved to {filepath} --")
 
