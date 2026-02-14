@@ -1,9 +1,15 @@
+"""
+data_cleaner.py
+The script for cleaning the scraped raw data
+"""
+
 import os
 import pandas as pd
 
 RAW_DATA_PATH = "question2_data_analysis/data/raw/" # Path to the raw scraped data
 CLEANED_DATA_PATH = "question2_data_analysis/data/cleaned/" # Path to save the cleaned data
 
+# Define the map for converting text rating to int rating
 RATING_MAP = {
     "One": 1,
     "Two": 2,

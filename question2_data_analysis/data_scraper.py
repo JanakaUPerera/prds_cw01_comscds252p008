@@ -1,6 +1,6 @@
 """
-book_scraper.py
-This script scrapes book data from the "https://books.toscrape.com" website, 
+data_scraper.py
+This script scrapes data from the "https://books.toscrape.com" website, 
 including title, price, rating, category, and availability. 
 The scraped data is saved to a CSV file for further analysis.
 """
