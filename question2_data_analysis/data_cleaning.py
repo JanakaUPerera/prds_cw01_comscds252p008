@@ -75,4 +75,4 @@ def clean_data(file_name: str):
     
 
 if __name__ == "__main__":
-    clean_data('books_data.csv')
+    clean_data('books_data_500.csv')
