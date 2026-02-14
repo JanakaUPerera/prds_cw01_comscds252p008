@@ -34,6 +34,7 @@ Return:
 def fetch_with_retries(url: str, retries: int = 3, timeout: int = 10) -> requests.Response:
     for attempt in range(1, retries + 1):
         try:
+            time.sleep(random.uniform(1,2)) # Wait a random amount of time before execute request
             response = requests.get(url, timeout=timeout)
             response.raise_for_status()  # Check if the request was successful
             response.encoding = "utf-8" # Encode the response to UTF-8 to handle special characters
