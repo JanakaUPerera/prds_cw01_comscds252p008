@@ -15,10 +15,10 @@ RATING_MAP = {
 def clean_data(file_name: str):
     print("\n-- Cleaning Data ---")
     try:
-        full_path = os.path.join(RAW_DATA_PATH, file_name)
+        file_path = os.path.join(RAW_DATA_PATH, file_name)
 
-        if os.path.isfile(full_path):
-            df = pd.read_csv(full_path, encoding='utf-8-sig')
+        if os.path.isfile(file_path):
+            df = pd.read_csv(file_path)
 
             # Before Cleaning
             print("-- Before Cleaning --")
