@@ -82,7 +82,7 @@ Structure:
 - Print a confirmation message with the file path
 """
 def save_to_csv(data: list, file_name: str = "books_data.csv"):
-    headers = ["Title", "Price", "Rating", "Category", "Availability"]
+    headers = ["title", "price", "rating", "category", "availability"]
     # Create the csv saving folder if it is not exist
     os.makedirs(DATA_PATH, exist_ok=True)
     
