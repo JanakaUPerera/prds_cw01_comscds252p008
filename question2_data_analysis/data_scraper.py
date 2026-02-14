@@ -12,10 +12,11 @@ import os
 import csv
 
 from bs4 import BeautifulSoup
+from tqdm import tqdm
 
 BASE_URL = 'https://books.toscrape.com/catalogue/page-{}.html' # URL template for paginated book listings
 DETAIL_BASE_URL = 'https://books.toscrape.com/catalogue/' # Base URL for further book details
-DATA_PATH = "question2_data_analysis/data/" # Path to save the scraped data
+DATA_PATH = "question2_data_analysis/data/raw/" # Path to save the scraped data
 
 """
 Define a function to fetch the content of the URL
@@ -33,6 +34,7 @@ Return:
 def fetch_with_retries(url: str, retries: int = 3, timeout: int = 10) -> requests.Response:
     for attempt in range(1, retries + 1):
         try:
+            time.sleep(random.uniform(1,2)) # Wait a random amount of time before execute request
             response = requests.get(url, timeout=timeout)
             response.raise_for_status()  # Check if the request was successful
             response.encoding = "utf-8" # Encode the response to UTF-8 to handle special characters
@@ -42,7 +44,6 @@ def fetch_with_retries(url: str, retries: int = 3, timeout: int = 10) -> request
             print(f"Attempt {attempt} failed: {e}")
             if attempt == retries:
                 print("All attempts failed. Giving up.")
-            time.sleep(random.uniform(1, 2))  # Wait a random amount of time before retrying
 
 """
 Define a function to extract the category of a book from its detail URL
@@ -51,15 +52,13 @@ Parameters:
 Structure:
 - Try to fetch the detail page content
 - If successful, parse the HTML and extract the category from the breadcrumb navigation
-- If an error occurs, return "Unknown"
+- If an error occurs, return None
 Return:
-    The category name as a string, or "Unknown" if extraction fails
+    The category name as a string, or None if extraction fails
 """
 def get_category(detail_url: str) -> str:
     try:
         response = fetch_with_retries(detail_url)
-        if response is None:
-            return "Unknown"
         
         soup = BeautifulSoup(response, "html.parser")
         breadcrumb = soup.find("ul", class_="breadcrumb")
@@ -67,7 +66,7 @@ def get_category(detail_url: str) -> str:
         return category
     except Exception as e:
         print(f"Error: {e}")
-        return 'Unknown'
+        return None
 
 """
 Define a function to save the scraped data to a CSV file
@@ -81,16 +80,17 @@ Structure:
 - Print a confirmation message with the file path
 """
 def save_to_csv(data: list, file_name: str = "books_data.csv"):
-    headers = ["Title", "Price", "Rating", "Category", "Availability"]
+    headers = ["title", "price", "rating", "category", "availability"]
     # Create the csv saving folder if it is not exist
     os.makedirs(DATA_PATH, exist_ok=True)
     
-    filepath = DATA_PATH + file_name
+    filepath = os.path.join(DATA_PATH, file_name)
     
     with open(filepath, mode="w", newline="", encoding="utf-8-sig") as file:
         writer = csv.writer(file)
         writer.writerow(headers)
         writer.writerows(data)
+        file.close()
     
     print(f"\n-- Data saved to {filepath} --")
 
@@ -107,11 +107,10 @@ Structure:
 Return:
 - A list of lists containing the scraped book data
 """
-def scrape_book_data(pages: int = 5) -> list:
-    books_data = []
-    for page in range(1, pages + 1):
+def scrape_data(pages: int = 5) -> list:
+    scraped_data = []
+    for page in tqdm(range(1, pages + 1), desc="Scraping Pages"):
         url = BASE_URL.format(page)
-        print(f"\n-- Scraping book data from Page: {page} --")
         
         try:
             response = fetch_with_retries(url)
@@ -121,7 +120,7 @@ def scrape_book_data(pages: int = 5) -> list:
             soup = BeautifulSoup(response, 'html.parser')
             books = soup.find_all("article", class_="product_pod")
             
-            for book in books:
+            for book in tqdm(books, desc=f"Processing Page {page}", leave=False):
                 try:
                     title = book.h3.a['title']
                     price = book.find("p", class_="price_color").text.strip()
@@ -129,26 +128,22 @@ def scrape_book_data(pages: int = 5) -> list:
                     category = get_category(DETAIL_BASE_URL + book.h3.a["href"])
                     availability = book.find("p", class_="instock availability").text.strip()
                     
-                    books_data.append([
+                    scraped_data.append([
                         title,
                         price,
                         rating,
                         category,
                         availability
                     ])
-                    
-                    print(f"Scraped: {title}")
                 except Exception as book_error:
                     print(f"Error: {book_error}")
-                    
-            time.sleep(random.uniform(1,2))
             
         except Exception as page_error:
             print(f"Error: {page_error}")
             
-    print(f"\n-- {len(books_data)} books was scraped --")
-    return books_data
+    print(f"\n-- {len(scraped_data)} data was scraped --")
+    return scraped_data
 
 if __name__ == "__main__":
-    books_data = scrape_book_data(5)
-    save_to_csv(books_data, "books_data.csv")
+    scraped_data = scrape_data(25)
+    save_to_csv(scraped_data, f"books_data_500.csv")
