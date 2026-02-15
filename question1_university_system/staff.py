@@ -7,7 +7,7 @@ functions:
 - get_info: Returns a formatted string with the staff member's information.
 - get_responsibilities: Returns the responsibilities.
 """
-from person import Person
+from question1_university_system.person import Person
 
 class Staff(Person):
     def __init__(self, 

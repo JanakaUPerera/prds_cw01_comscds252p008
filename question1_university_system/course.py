@@ -8,17 +8,27 @@ functions:
 - add_student: Adds a student to the course if there is capacity.
 - remove_student: Removes a student from the course.
 """
-from student import Student
+from question1_university_system.student import Student
+from question1_university_system.faculty import Faculty
 
 class Course:
     def __init__(self, 
                 course_code: str, 
                 course_name: str, 
                 credits: int, 
-                instructor: str,
+                instructor: Faculty,
                 max_capacity: int,
                 enrolled_students: list[Student] = None,
                 )-> None:
+        
+        # Validating initial data
+        # Check credit value is positive value
+        if credits <= 0:
+            raise ValueError("Credits must be positive value")
+        # Check max capacity value is positive value
+        if max_capacity <= 0:
+            raise ValueError("Max Capacity must be positive value")
+        
         self.course_code = course_code
         self.course_name = course_name
         self.credits = credits

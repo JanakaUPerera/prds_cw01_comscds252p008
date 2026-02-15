@@ -7,7 +7,8 @@ functions:
 - get_info: Returns a formatted string with the faculty member's information.
 - get_responsibilities: Returns the responsibilities.
 """
-from person import Person
+from question1_university_system.person import Person
+from datetime import datetime
 
 class Faculty(Person):
     def __init__(self, 
@@ -18,6 +19,14 @@ class Faculty(Person):
                 employee_id: int,
                 department: str, 
                 hire_date: str):
+        
+        # Validate initial data
+        # Validate hire date format
+        try:
+            datetime.strptime(hire_date, "%Y-%m-%d")
+        except ValueError:
+            raise ValueError("Hire date must be in YYYY-MM-DD format")
+        
         super().__init__(name, person_id, email, phone)
         self.employee_id = employee_id
         self.department = department

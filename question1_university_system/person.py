@@ -9,6 +9,8 @@ functions:
 - update_contact: Updates the person's contact information.
 - get_responsibilities: Returns the responsibilities.
 """
+import re
+
 class Person:
     def __init__(self, 
                 name: str, 
@@ -16,6 +18,15 @@ class Person:
                 email: str, 
                 phone: str
                 ) -> None:
+        # Validate initial data
+        # Validate email
+        email_pattern = r"^[\w\.-]+@[\w\.-]+\.\w+$"
+        if not re.match(email_pattern, email):
+            raise ValueError("Invalid email format")
+        # Phone number should be digit and length should be greater than or equal 9
+        if not phone.isdigit() or len(phone) < 9:
+            raise ValueError("Invalid phone number format")
+        
         self.name = name
         self.person_id = person_id
         self.email = email

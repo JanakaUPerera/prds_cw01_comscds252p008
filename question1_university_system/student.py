@@ -12,7 +12,8 @@ functions:
 - get_academic_status: Determines the academic status of the student based on their GPA.
 - get_responsibilities: Returns the responsibilities.
 """
-from person import Person
+from question1_university_system.person import Person
+from datetime import datetime
 
 class Student(Person):
     MAX_COURSES_PER_SEMESTER = 6
@@ -25,6 +26,14 @@ class Student(Person):
                 student_id: str, 
                 major: str, 
                 enrollment_date: str):
+        
+        # Validate initial data
+        # Validate enrollment date format
+        try:
+            datetime.strptime(enrollment_date, "%Y-%m-%d")
+        except ValueError:
+            raise ValueError("Enrollment date must be in YYYY-MM-DD format")
+        
         super().__init__(name, person_id, email, phone)
         self.student_id = student_id
         self.major = major
