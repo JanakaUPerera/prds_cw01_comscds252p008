@@ -21,6 +21,7 @@ A structured technical report is also included as required.
 ---
 
 ## Project Structure
+```txt
 prds_cw01_comscds252p008
  ┣ question1_university_system
  ┃ ┣ course.py
@@ -63,6 +64,7 @@ prds_cw01_comscds252p008
  ┣ .gitignore
  ┣ README.md
  ┗ requirements.txt
+```
 
  ---
 

@@ -10,6 +10,7 @@ This folder contains the implementation for **Question 1** of the coursework: an
 ---
 
 ## Folder Structure (Question 1)
+```txt
 question1_university_system
  ┣ course.py
  ┣ department.py
@@ -19,6 +20,7 @@ question1_university_system
  ┣ README.md
  ┣ staff.py
  ┗ student.py
+```
 
 ## Technologies Used
 - Python 3.13+
