@@ -38,15 +38,28 @@ prds_cw01_comscds252p008
  ┃ ┃ ┣ raw
  ┃ ┃ ┃ ┗ books_data_500.csv
  ┃ ┃ ┗ visualizations
- ┃ ┃ ┃ ┣ boxplot_price_top5_categories.png
- ┃ ┃ ┃ ┣ histogram_price.png
- ┃ ┃ ┃ ┣ interactive_bar_avg_rating_top8.html
- ┃ ┃ ┃ ┣ scatterplot_price_vs_rating.png
+ ┃ ┃ ┃ ┣ bar_avg_rating_top8.html
+ ┃ ┃ ┃ ┣ boxplot_price_top5_categories.html
+ ┃ ┃ ┃ ┣ histogram_price.html
+ ┃ ┃ ┃ ┣ interactive_bar_avg_rating_selector.html
+ ┃ ┃ ┃ ┣ interactive_scatterplot_price_vs_rating_selector.html
+ ┃ ┃ ┃ ┣ scatterplot_price_vs_rating.html
+ ┃ ┣ advance_visualize_plotly.ipynb
  ┃ ┣ data_analyzer.py
  ┃ ┣ data_cleaner.py
  ┃ ┣ data_predictor.py
  ┃ ┣ data_scraper.py
- ┃ ┗ data_visualizer.py
+ ┃ ┣ data_visualizer.py
+ ┃ ┗ interactive_dashboard.ipynb
+ ┣ tests
+ ┃ ┗ test_question1
+ ┃ ┃ ┣ test_q1_course.py
+ ┃ ┃ ┣ test_q1_department.py
+ ┃ ┃ ┣ test_q1_faculty.py
+ ┃ ┃ ┣ test_q1_person.py
+ ┃ ┃ ┣ test_q1_staff.py
+ ┃ ┃ ┣ test_q1_student.py
+ ┃ ┃ ┗ __init__.py
  ┣ .gitignore
  ┣ README.md
  ┗ requirements.txt
@@ -86,11 +99,13 @@ Implements a full data science pipeline:
 - Descriptive statistics
 - Inferential statistics (IQR, correlation, t-test)
 
-### D. Visualization
+### D. Visualization - Using Plotly
 - Histogram
 - Box plot
 - Scatter plot with regression
-- Interactive bar chart (Plotly)
+- bar chart
+- Interactive Scatter Plot
+- Interactive bar chart
 
 ### E. Predictive Analysis
 - Linear Regression model
@@ -104,6 +119,10 @@ python data_cleaner.py
 python data_analyzer.py
 python data_visualizer.py
 python data_predictor.py
+
+### Unit Test
+Test each classes
+Run: python -m unittest discover -s tests -p "test_*.py" -v
 
 # Question 3 – Data Ethics: AI Ethics in Healthcare
 
@@ -122,7 +141,6 @@ at technical_report.pdf under Data Ethics: AI Ethics in Healthcare
 - NumPy
 - SciPy
 - scikit-learn
-- Matplotlib
 - Plotly
 - BeautifulSoup4
 - requests
