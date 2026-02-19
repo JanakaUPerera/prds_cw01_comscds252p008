@@ -71,7 +71,10 @@ class Student(Person):
             self.enrolled_courses[semester] = []
 
         if len(self.enrolled_courses[semester]) >= self.MAX_COURSES_PER_SEMESTER:
-            raise ValueError(f"Cannot enroll: The maximum number of courses for a semester is {self.MAX_COURSES_PER_SEMESTER}, and has been reached.")
+            raise ValueError(
+                f"Cannot enroll: The maximum number of courses for a semester is "
+                f"{self.MAX_COURSES_PER_SEMESTER}, and has been reached."   
+            )
         
         if course_code not in self.enrolled_courses[semester]:
             self.enrolled_courses[semester].append(course_code)
