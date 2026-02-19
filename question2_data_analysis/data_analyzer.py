@@ -121,6 +121,6 @@ def analyze_data_inferential_statistics(file_name: str) -> None:
         print("Not enough data to perform t-test.")
     
 if __name__ == "__main__":
-    # analyze_data_descriptive_statistics('cleaned_books_data_500.csv')
+    analyze_data_descriptive_statistics('cleaned_books_data_500.csv')
     analyze_data_inferential_statistics('cleaned_books_data_500.csv')
     
