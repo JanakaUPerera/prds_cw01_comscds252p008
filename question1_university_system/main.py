@@ -1,8 +1,8 @@
-from student import Student
-from faculty import Faculty
-from staff import Staff
-from course import Course
-from department import Department
+from question1_university_system.student import Student
+from question1_university_system.faculty import Faculty
+from question1_university_system.staff import Staff
+from question1_university_system.course import Course
+from question1_university_system.department import Department
 
 class Main:
     def __init__(self):
@@ -56,22 +56,36 @@ class Main:
             
         # Demonstrate enroll a student in 4-5 courses, receiving grades, and displaying academic status.
         student = students[0]  # Select the first student for demonstration
-        print(f"\n--- Enrolling Courses for {student.name} ---")
+        print(f"\n--- Enrolling Courses for a Student ---")
+        print("-" * 50)
+        print(student.get_info())
+        print("-" * 50)
         enroll_semester = "2025S1"
         courses = ['CS101', 'CS102', 'CS103', 'CS104', 'CS105']
+        print(f"Adding Courses under semester {enroll_semester}")
+        print("-" * 50)
         for course in courses:
             student.enroll_course(enroll_semester, course)
+            print(course)
+            
         
         grades = [3.5, 3.7, 3.2, 4.0, 3.8]
+        print("-" * 50)
+        print("Adding Grades")
+        print("-" * 50)
         for course, grade in zip(courses, grades):
             student.add_grade(enroll_semester, course, grade)
+            print(f"{course} : \t\t{grade}")
         
+        print("-" * 50)
         print(f"\n--- Academic Status for {student.name} ---")
+        print("-" * 50)
         print(f"GPA: {student.gpa}")
         print(f"Academic Status: {student.get_academic_status()}")
         
         # Show error handling by attempting to add invalid data.
         print("\n--- Error Handling Demonstration ---")
+        print("-" * 50)
         print("Attempting to enroll in more than 6 courses in a semester:")
         try:
             student.enroll_course(enroll_semester, 'CS106')
@@ -93,13 +107,16 @@ class Main:
         
         # Demonstrate Polymorphism
         print("\n--- Polymorphism Demonstration ---")
+        print("-" * 50)
         persons = [students[0], faculty_members[2], staff_members[4]]
         for person in persons:
-            print(f"\n{person.__class__.__name__}:\n{'--'*30}\n")
+            print(f"{person.__class__.__name__}:\n{'-'*50}")
             print(f"{person.name}: {person.get_responsibilities()}")
+            print("-" * 50)
         
         # Course & Department classes demo (2 departments, 3-4 courses each)
         print("\n--- Course & Department Demonstration ---")
+        print("-" * 50)
         dept_cs = Department("Computing", dept_head=faculty_members[0])
         dept_bus = Department("Business", dept_head=faculty_members[2])
 
@@ -131,17 +148,20 @@ class Main:
         bus_courses[1].add_student(students[4])
 
         print("\n--- Error Handling in Course Enrollment ---")
+        print("-" * 50)
         try:
             cs_courses[0].add_student(students[2])  # This should raise an error (course full)
         except ValueError as e:
             print(f"Error: {e}")
 
         print("\n--- Department Summary (Computing) ---")
+        print("-" * 50)
         print(dept_cs.get_department_info())
         for c in dept_cs.course_list:
             print("  ", str(c))
 
         print("\n--- Department Summary (Business) ---")
+        print("-" * 50)
         print(dept_bus.get_department_info())
         for c in dept_bus.course_list:
             print("  ", str(c))
