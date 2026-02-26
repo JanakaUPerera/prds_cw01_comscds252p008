@@ -38,13 +38,13 @@ venv\Scripts\activate     # Windows
 
 ## How to Run
 1. Open a terminal in this folder: question1_university_system
-2. Run the demo: python .\main.py
+2. Run the demo: python -m question1_university_system.main
 
 
 ---
 
 ## What the Demo Shows (as required)
-When you run `main.py`, the output demonstrates:
+When you run `main.py` through the command, the output demonstrates:
 
 ### A) Inheritance
 - Creates at least **3 Student**, **3 Faculty**, **3 Staff** objects

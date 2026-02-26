@@ -63,7 +63,8 @@ prds_cw01_comscds252p008
  ┃ ┃ ┗ __init__.py
  ┣ .gitignore
  ┣ README.md
- ┗ requirements.txt
+ ┣ requirements.txt
+ ┗ technical_report_comscds252p008.pdf
 ```
 
  ---
@@ -135,7 +136,7 @@ Discusses:
 - Stakeholder impact in healthcare AI
 
 **Submitted as:**
-at technical_report.pdf under Data Ethics: AI Ethics in Healthcare
+at technical_report_comscds252p008.pdf under Data Ethics: AI Ethics in Healthcare
 
 ## Technologies Used
 - Python 3.13+
