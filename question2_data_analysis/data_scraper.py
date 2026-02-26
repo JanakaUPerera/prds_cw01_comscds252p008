@@ -79,7 +79,7 @@ Structure:
 - Open the CSV file for writing and write the headers and data rows
 - Print a confirmation message with the file path
 """
-def save_to_csv(data: list, file_name: str = "books_data.csv"):
+def save_to_csv(data: list, file_name: str):
     headers = ["title", "price", "rating", "category", "availability"]
     # Create the csv saving folder if it is not exist
     os.makedirs(DATA_PATH, exist_ok=True)
@@ -145,5 +145,5 @@ def scrape_data(pages: int = 5) -> list:
     return scraped_data
 
 if __name__ == "__main__":
-    scraped_data = scrape_data(25)
+    scraped_data = scrape_data(25) # Scrape from 25 pages for 500 records
     save_to_csv(scraped_data, f"books_data_500.csv")
